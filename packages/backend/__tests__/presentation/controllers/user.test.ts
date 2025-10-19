@@ -27,7 +27,8 @@ describe("UserController", () => {
     mockContext = {
       json: vi.fn(),
       req: {
-        param: vi.fn()
+        param: vi.fn(),
+        query: vi.fn()
       }
     } as any;
 
@@ -100,11 +101,11 @@ describe("UserController", () => {
       // Arrange
       const discordUserID = "123456789012345678";
       const mockUserInfo = {
-        discordUserID: DiscordUserID.from(discordUserID),
+        discordUserID: DiscordUserID.from(discordUserID).value,
         discordUserName: "testuser",
         discordGlobalName: "Test User",
         discordAvatar: "avatar.png",
-        remainingPoint: 350
+        remainingPoints: 350
       };
 
       vi.mocked(mockContext.req.param).mockReturnValue(discordUserID);
@@ -116,6 +117,7 @@ describe("UserController", () => {
       await controller.getUserInfo(mockContext);
 
       // Assert
+      expect(mockContext.req.query).toHaveBeenCalledWith("name");
       expect(mockContext.req.param).toHaveBeenCalledWith("discordUserID");
       expect(mockUserInfoQueryService.getUserInfo).toHaveBeenCalledWith(
         DiscordUserID.from(discordUserID)
@@ -136,6 +138,7 @@ describe("UserController", () => {
       await controller.getUserInfo(mockContext);
 
       // Assert
+      expect(mockContext.req.query).toHaveBeenCalledWith("name");
       expect(mockContext.req.param).toHaveBeenCalledWith("discordUserID");
       expect(mockUserInfoQueryService.getUserInfo).toHaveBeenCalledWith(
         DiscordUserID.from(discordUserID)
@@ -149,6 +152,7 @@ describe("UserController", () => {
 
       // Act & Assert
       await expect(controller.getUserInfo(mockContext)).rejects.toThrow();
+      expect(mockContext.req.query).toHaveBeenCalledWith("name");
       expect(mockContext.req.param).toHaveBeenCalledWith("discordUserID");
     });
   });
