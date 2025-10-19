@@ -18,7 +18,6 @@ type UserPageClientProps = {
 	user: UserInfo;
 	isOwnUser: boolean;
 	isNotificationEnabled: boolean;
-	appreciationList: Appreciation[];
 	receivedAppreciations: Appreciation[];
 	sentAppreciations: Appreciation[];
 	sendUserList: User[];

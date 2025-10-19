@@ -16,8 +16,9 @@ type Story = StoryObj<typeof UserPageClient>;
 export const Default: Story = {
 	args: {
 		user: mockUserInfo,
-		appreciationList: mockAppreciationList,
 		allUsers: mockUsers,
+		receivedAppreciations: mockAppreciationList,
+		sentAppreciations: mockAppreciationList,
 		sendUserList: [],
 		receivedUserList: [],
 	},
