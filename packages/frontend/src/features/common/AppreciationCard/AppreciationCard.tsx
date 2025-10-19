@@ -9,6 +9,7 @@ import { Popover } from "~/components/ui/popover";
 import { usePopover } from "~/components/ui/usePopover";
 import { formatDate } from "~/lib/date-helper";
 import type { Appreciation } from "~/model/appreciation";
+import { TruncatedLabel } from "../TruncatedLabel";
 import useDisplayReceivedUsers from "./useDisplayReceivedUsers";
 
 type AppreciationCardProps = {
@@ -48,11 +49,9 @@ export const AppreciationCard: React.FC<AppreciationCardProps> = ({
 						>
 							<Avatar size={"xl"} src={appreciation.sender.discordAvatar} />
 							{appreciation.sender.discordGlobalName !== null ? (
-								<Box fontSize={"sm"}>
-									{appreciation.sender.discordGlobalName}
-								</Box>
+								<TruncatedLabel label={appreciation.sender.discordGlobalName} />
 							) : (
-								<Box fontSize={"sm"}>{appreciation.sender.discordUserName}</Box>
+								<TruncatedLabel label={appreciation.sender.discordUserName} />
 							)}
 						</Stack>
 					</Link>
@@ -86,9 +85,9 @@ export const AppreciationCard: React.FC<AppreciationCardProps> = ({
 										>
 											<Avatar size={"xl"} src={user.discordAvatar} />
 											{user.discordGlobalName !== null ? (
-												<Box fontSize={"sm"}>{user.discordGlobalName}</Box>
+												<TruncatedLabel label={user.discordGlobalName} />
 											) : (
-												<Box fontSize={"sm"}>{user.discordUserName}</Box>
+												<TruncatedLabel label={user.discordUserName} />
 											)}
 										</Stack>
 									</Link>
@@ -145,9 +144,9 @@ export const AppreciationCard: React.FC<AppreciationCardProps> = ({
 												<Avatar size={"xl"} src={user.discordAvatar} />
 												<Stack direction={"column"} gap={"8px"}>
 													{user.discordGlobalName !== null ? (
-														<Box fontSize={"sm"}>{user.discordGlobalName}</Box>
+														<TruncatedLabel label={user.discordGlobalName} />
 													) : (
-														<Box fontSize={"sm"}>{user.discordUserName}</Box>
+														<TruncatedLabel label={user.discordUserName} />
 													)}
 												</Stack>
 											</Stack>

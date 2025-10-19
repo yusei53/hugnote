@@ -1,0 +1,1 @@
+export { TruncatedLabel } from "./TruncatedLabel";
