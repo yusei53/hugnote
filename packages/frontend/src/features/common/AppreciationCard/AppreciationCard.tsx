@@ -56,7 +56,7 @@ export const AppreciationCard: React.FC<AppreciationCardProps> = ({
 							/>
 						</Stack>
 					</Link>
-					<Icon size={"lg"}>
+					<Icon size={"lg"} color={"blush"}>
 						<SendHorizontal />
 					</Icon>
 					<Popover.Root
@@ -72,7 +72,7 @@ export const AppreciationCard: React.FC<AppreciationCardProps> = ({
 								outline: "none",
 							})}
 						>
-							<Stack direction={"row"} alignItems={"center"} gap={"16px"}>
+							<Stack direction={"row"} alignItems={"center"} gap={"24px"}>
 								{displayReceivedUsers.map((user) => (
 									<Link
 										href={`/${user.discordUserName}`}
@@ -92,19 +92,9 @@ export const AppreciationCard: React.FC<AppreciationCardProps> = ({
 									</Link>
 								))}
 								{hiddenReceivedUsersCount > 0 && (
-									<Box
-										className={css({
-											fontSize: "2xl",
-										})}
-									>
-										他{hiddenReceivedUsersCount}人
-									</Box>
+									<Box fontSize="2xl">他{hiddenReceivedUsersCount}人</Box>
 								)}
-								<Box
-									className={css({
-										fontSize: "3xl",
-									})}
-								>
+								<Box fontSize="3xl" fontFamily={"system-ui"}>
 									+{appreciation.pointPerReceiver}pt
 								</Box>
 							</Stack>
