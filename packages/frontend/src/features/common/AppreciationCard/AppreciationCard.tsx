@@ -151,7 +151,7 @@ export const AppreciationCard: React.FC<AppreciationCardProps> = ({
 				{formatDate(appreciation.createdAt)}
 			</Box>
 			<Card.Body>
-				<Box>{appreciation.message}</Box>
+				<Box whiteSpace="pre-wrap">{appreciation.message}</Box>
 			</Card.Body>
 		</Card.Root>
 	);
