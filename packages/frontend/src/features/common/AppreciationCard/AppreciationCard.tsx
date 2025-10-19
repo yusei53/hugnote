@@ -48,11 +48,12 @@ export const AppreciationCard: React.FC<AppreciationCardProps> = ({
 							cursor="pointer"
 						>
 							<Avatar size={"xl"} src={appreciation.sender.discordAvatar} />
-							{appreciation.sender.discordGlobalName !== null ? (
-								<TruncatedLabel label={appreciation.sender.discordGlobalName} />
-							) : (
-								<TruncatedLabel label={appreciation.sender.discordUserName} />
-							)}
+							<TruncatedLabel
+								label={
+									appreciation.sender.discordGlobalName ??
+									appreciation.sender.discordUserName
+								}
+							/>
 						</Stack>
 					</Link>
 					<Icon size={"lg"}>
@@ -84,11 +85,9 @@ export const AppreciationCard: React.FC<AppreciationCardProps> = ({
 											cursor="pointer"
 										>
 											<Avatar size={"xl"} src={user.discordAvatar} />
-											{user.discordGlobalName !== null ? (
-												<TruncatedLabel label={user.discordGlobalName} />
-											) : (
-												<TruncatedLabel label={user.discordUserName} />
-											)}
+											<TruncatedLabel
+												label={user.discordGlobalName ?? user.discordUserName}
+											/>
 										</Stack>
 									</Link>
 								))}
@@ -143,11 +142,11 @@ export const AppreciationCard: React.FC<AppreciationCardProps> = ({
 											>
 												<Avatar size={"xl"} src={user.discordAvatar} />
 												<Stack direction={"column"} gap={"8px"}>
-													{user.discordGlobalName !== null ? (
-														<TruncatedLabel label={user.discordGlobalName} />
-													) : (
-														<TruncatedLabel label={user.discordUserName} />
-													)}
+													<TruncatedLabel
+														label={
+															user.discordGlobalName ?? user.discordUserName
+														}
+													/>
 												</Stack>
 											</Stack>
 										</Link>

@@ -11,6 +11,7 @@ import { IconButton } from "~/components/ui/icon-button";
 import { Input } from "~/components/ui/input";
 import { Textarea } from "~/components/ui/textarea";
 import type { User } from "~/model/user";
+import { TruncatedLabel } from "../TruncatedLabel";
 import { useAppreciationForm } from "./usePostForm";
 
 type AppreciationFormProps = {
@@ -62,15 +63,9 @@ export const AppreciationForm: React.FC<AppreciationFormProps> = ({
 										key={user.discordUserID}
 									>
 										<Avatar size={"md"} src={user.discordAvatar} />
-										<Box
-											maxWidth="60px"
-											overflow="hidden"
-											textOverflow="ellipsis"
-											whiteSpace="nowrap"
-											fontSize="sm"
-										>
-											{user.discordGlobalName ?? user.discordUserName}
-										</Box>
+										<TruncatedLabel
+											label={user.discordGlobalName ?? user.discordUserName}
+										/>
 									</Stack>
 								))}
 							</Stack>
