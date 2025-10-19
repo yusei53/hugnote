@@ -59,7 +59,7 @@ export const ClientTopPage: React.FC<ClientTopPageProps> = ({
 									<SendHorizontal />
 								</Icon>
 							}
-							title="今週送ったランキング"
+							title="今週送った TOP3"
 							rankingUsers={sendPointRanking}
 						/>
 						<TopRanking
@@ -68,7 +68,7 @@ export const ClientTopPage: React.FC<ClientTopPageProps> = ({
 									<Gift />
 								</Icon>
 							}
-							title="今週もらったランキング"
+							title="今週もらった TOP3"
 							rankingUsers={receivedPointRanking}
 						/>
 					</Stack>

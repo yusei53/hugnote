@@ -5,6 +5,7 @@ import { Avatar } from "~/components/ui/avatar";
 import { Icon } from "~/components/ui/icon";
 import type { PointLeaderUser } from "~/model/point-leader";
 import { useGetAvatarSize } from "./useGetAvatarSize";
+import { useGetCrownColor } from "./useGetCrownColor";
 
 type TopRankingProps = {
 	titleIcon: React.ReactNode;
@@ -18,6 +19,7 @@ export const TopRanking: React.FC<TopRankingProps> = ({
 	rankingUsers,
 }) => {
 	const { getAvatarSize } = useGetAvatarSize();
+	const { getCrownColor } = useGetCrownColor();
 	return (
 		<Stack direction={"row"} gap={"16px"} alignItems={"center"} px={"16px"}>
 			<Stack direction={"column"} gap={"8px"}>
@@ -29,24 +31,17 @@ export const TopRanking: React.FC<TopRankingProps> = ({
 					<Divider />
 				</Box>
 			</Stack>
-			<Stack direction={"row"} gap={"24px"} alignItems={"center"}>
+			<Stack direction={"row"} gap={"24px"} alignItems={"flex-end"}>
 				{rankingUsers.map((user, index) => (
 					<Link href={`/${user.discordUserName}`} key={user.userID}>
-						<Stack
-							direction={"column"}
-							alignItems={"center"}
-							mt={"auto"}
-							cursor="pointer"
-						>
-							<Icon>
+						<Stack direction={"column"} alignItems={"center"} cursor="pointer">
+							<Icon style={{ color: getCrownColor(index) }}>
 								<Crown />
 							</Icon>
 							<Box>
 								<Avatar size={getAvatarSize(index)} src={user.discordAvatar} />
 							</Box>
-							<Box mt={"auto"} fontWeight={"bold"}>
-								{user.totalPoints}pt
-							</Box>
+							<Box fontWeight={"bold"}>{user.totalPoints}pt</Box>
 						</Stack>
 					</Link>
 				))}
