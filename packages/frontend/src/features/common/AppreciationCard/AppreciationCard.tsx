@@ -48,9 +48,11 @@ export const AppreciationCard: React.FC<AppreciationCardProps> = ({
 						>
 							<Avatar size={"xl"} src={appreciation.sender.discordAvatar} />
 							{appreciation.sender.discordGlobalName !== null ? (
-								<Box>{appreciation.sender.discordGlobalName}</Box>
+								<Box fontSize={"sm"}>
+									{appreciation.sender.discordGlobalName}
+								</Box>
 							) : (
-								<Box>{appreciation.sender.discordUserName}</Box>
+								<Box fontSize={"sm"}>{appreciation.sender.discordUserName}</Box>
 							)}
 						</Stack>
 					</Link>
@@ -84,9 +86,9 @@ export const AppreciationCard: React.FC<AppreciationCardProps> = ({
 										>
 											<Avatar size={"xl"} src={user.discordAvatar} />
 											{user.discordGlobalName !== null ? (
-												<Box>{user.discordGlobalName}</Box>
+												<Box fontSize={"sm"}>{user.discordGlobalName}</Box>
 											) : (
-												<Box>{user.discordUserName}</Box>
+												<Box fontSize={"sm"}>{user.discordUserName}</Box>
 											)}
 										</Stack>
 									</Link>
@@ -143,9 +145,9 @@ export const AppreciationCard: React.FC<AppreciationCardProps> = ({
 												<Avatar size={"xl"} src={user.discordAvatar} />
 												<Stack direction={"column"} gap={"8px"}>
 													{user.discordGlobalName !== null ? (
-														<Box>{user.discordGlobalName}</Box>
+														<Box fontSize={"sm"}>{user.discordGlobalName}</Box>
 													) : (
-														<Box>{user.discordUserName}</Box>
+														<Box fontSize={"sm"}>{user.discordUserName}</Box>
 													)}
 												</Stack>
 											</Stack>

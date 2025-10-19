@@ -1,1 +1,6 @@
 @layer reset, base, tokens, recipes, utilities;
+
+/* Global letter spacing for all text elements */
+* {
+	letter-spacing: 0.03em;
+}
