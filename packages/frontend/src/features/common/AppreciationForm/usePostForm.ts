@@ -13,7 +13,8 @@ type UseAppreciationFormProps = {
 	users: User[];
 	remainingPoints: number;
 };
-const initialPoints = [5, 10, 15, 20, 30, 40] as const;
+
+const initialPoints = [10, 20, 40, 60, 80, 100, 120] as const;
 
 export const useAppreciationForm = ({
 	users,
@@ -110,7 +111,7 @@ export const useAppreciationForm = ({
 				label: `${calculatePoints(point, currentReceiverUsers.length)}pt`,
 				disabled:
 					calculatePoints(point, currentReceiverUsers.length) *
-						currentReceiverUsers.length >
+					currentReceiverUsers.length >
 					remainingPoints,
 			})),
 		});

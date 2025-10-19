@@ -1,12 +1,16 @@
+import { redirect } from "next/navigation";
 import { topPageAPIServer } from "~/features/routes/top-page/endpoints/topPageAPI.server";
+import { apiClientServer } from "~/lib/api-client-server";
 import { ClientTopPage } from "./page.client";
 
-// ISR（Incremental Static Regeneration）を使用
-// 60秒間キャッシュを保持し、その後バックグラウンドで再生成
-// Server ActionのrevalidateTagで即座にキャッシュを無効化することも可能
 export const revalidate = 60;
 
 const TopPage = async () => {
+	const isAuthenticated = await apiClientServer.isAuthenticated();
+	if (!isAuthenticated) {
+		return redirect("/auth/login");
+	}
+
 	const appreciationList = await topPageAPIServer.getAppreciationList();
 	const allUsers = await topPageAPIServer.getAllUsers();
 	const pointLeaders = await topPageAPIServer.getPointLeaders();

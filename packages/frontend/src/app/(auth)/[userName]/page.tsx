@@ -1,5 +1,6 @@
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { userPageAPIServer } from "~/features/routes/user-page/endpoints/userPageAPI.server";
+import { apiClientServer } from "~/lib/api-client-server";
 import { UserPageClient } from "./page.client";
 
 export default async function Page({
@@ -7,6 +8,10 @@ export default async function Page({
 }: {
 	params: Promise<{ userName: string }>;
 }) {
+	const isAuthenticated = await apiClientServer.isAuthenticated();
+	if (!isAuthenticated) {
+		return redirect("/auth/login");
+	}
 	const resolvedParams = await params;
 	const userName = resolvedParams.userName;
 

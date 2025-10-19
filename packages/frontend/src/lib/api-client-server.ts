@@ -154,7 +154,7 @@ class ApiClientServer {
 		if (!token) return false;
 
 		try {
-			await this.get<VerifyTokenResponse>("/auth/verify");
+			await this.get<VerifyTokenResponse>("/auth/is-authorized");
 			return true;
 		} catch (error) {
 			console.warn("Token validation failed:", error);
@@ -181,3 +181,4 @@ class ApiClientServer {
 export const apiClientServer = new ApiClientServer();
 export { ApiClientServer };
 export type { ApiError, VerifyTokenResponse };
+
