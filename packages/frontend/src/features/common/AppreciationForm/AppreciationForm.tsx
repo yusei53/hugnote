@@ -47,6 +47,34 @@ export const AppreciationForm: React.FC<AppreciationFormProps> = ({
 			>
 				<Card.Body>
 					<Stack direction={"column"} gap={"16px"}>
+						{currentReceiverUsers.length > 0 && (
+							<Stack
+								direction={"row"}
+								alignItems={"center"}
+								gap={"16px"}
+								flexWrap={"wrap"}
+							>
+								{currentReceiverUsers.map((user) => (
+									<Stack
+										direction={"column"}
+										alignItems={"center"}
+										gap={"4px"}
+										key={user.discordUserID}
+									>
+										<Avatar size={"md"} src={user.discordAvatar} />
+										<Box
+											maxWidth="60px"
+											overflow="hidden"
+											textOverflow="ellipsis"
+											whiteSpace="nowrap"
+											fontSize="sm"
+										>
+											{user.discordGlobalName ?? user.discordUserName}
+										</Box>
+									</Stack>
+								))}
+							</Stack>
+						)}
 						<Combobox.Root
 							multiple
 							collection={usersCollection}
@@ -90,27 +118,6 @@ export const AppreciationForm: React.FC<AppreciationFormProps> = ({
 								</Combobox.Content>
 							</Combobox.Positioner>
 						</Combobox.Root>
-						<Stack direction={"row"} alignItems={"center"} gap={"16px"}>
-							{currentReceiverUsers.map((user) => (
-								<Stack
-									direction={"column"}
-									alignItems={"center"}
-									gap={"4px"}
-									key={user.discordUserID}
-								>
-									<Avatar size={"md"} src={user.discordAvatar} />
-									<Box
-										maxWidth="60px"
-										overflow="hidden"
-										textOverflow="ellipsis"
-										whiteSpace="nowrap"
-										fontSize="sm"
-									>
-										{user.discordGlobalName ?? user.discordUserName}
-									</Box>
-								</Stack>
-							))}
-						</Stack>
 						<Divider />
 						<Field.Root invalid={!!errors.message}>
 							<Field.Label fontSize={"sm"} fontWeight={"semibold"}>
