@@ -20,6 +20,11 @@ export default async function Page({
 	if (targetUser === null) notFound();
 
 	const appreciationList = await userPageAPIServer.getAppreciationList();
+	const receivedAppreciations =
+		await userPageAPIServer.getReceivedAppreciations(targetUser.discordUserID);
+	const sentAppreciations = await userPageAPIServer.getSentAppreciations(
+		targetUser.discordUserID
+	);
 	const allUsers = await userPageAPIServer.getAllUsers();
 	const isOwnUser = targetUser.discordUserName === currentUser.discordUserName;
 
@@ -29,6 +34,8 @@ export default async function Page({
 			isOwnUser={isOwnUser}
 			isNotificationEnabled={false}
 			appreciationList={appreciationList}
+			receivedAppreciations={receivedAppreciations}
+			sentAppreciations={sentAppreciations}
 			allUsers={allUsers}
 			sendUserList={[]}
 			receivedUserList={[]}

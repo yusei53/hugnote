@@ -13,5 +13,6 @@ export const Default: Story = {
 	args: {
 		users: mockUsers,
 		remainingPoints: 100,
+		defaultReceiverUser: null,
 	},
 };

@@ -4,7 +4,7 @@ import { useCallback, useMemo } from "react";
 import { useForm } from "react-hook-form";
 import { toaster } from "~/components/shared/AppToaster/AppToaster";
 import type { ValueChangeDetails } from "~/components/ui/styled/combobox";
-import type { User } from "~/model/user";
+import type { User, UserInfo } from "~/model/user";
 import { createAppreciationAction } from "./actions/createAppreciationAction";
 import type { AppreciationValues } from "./endpoints/appreciationSchema";
 import { createAppreciationSchema } from "./endpoints/appreciationSchema";
@@ -12,6 +12,7 @@ import { createAppreciationSchema } from "./endpoints/appreciationSchema";
 type UseAppreciationFormProps = {
 	users: User[];
 	remainingPoints: number;
+	defaultReceiverUser: UserInfo | null;
 };
 
 const initialPoints = [10, 20, 40, 60, 80, 100, 120] as const;
@@ -19,6 +20,7 @@ const initialPoints = [10, 20, 40, 60, 80, 100, 120] as const;
 export const useAppreciationForm = ({
 	users,
 	remainingPoints,
+	defaultReceiverUser,
 }: UseAppreciationFormProps) => {
 	const postSchema = useMemo(
 		() => createAppreciationSchema(remainingPoints),
@@ -31,12 +33,14 @@ export const useAppreciationForm = ({
 		watch,
 		trigger,
 		reset,
-		formState: { isValid, errors },
+		formState: { isValid, errors, isSubmitting },
 	} = useForm<AppreciationValues>({
 		resolver: zodResolver(postSchema),
 		mode: "onChange",
 		defaultValues: {
-			receiverIDs: [],
+			receiverIDs: defaultReceiverUser
+				? [defaultReceiverUser.discordUserID]
+				: [],
 			message: "",
 			pointPerReceiver: 0,
 		},
@@ -107,7 +111,7 @@ export const useAppreciationForm = ({
 	const pointsCollection = useMemo(() => {
 		return createListCollection({
 			items: initialPoints.map((point) => ({
-				value: calculatePoints(point, currentReceiverUsers.length),
+				value: `${calculatePoints(point, currentReceiverUsers.length)}`,
 				label: `${calculatePoints(point, currentReceiverUsers.length)}pt`,
 				disabled:
 					calculatePoints(point, currentReceiverUsers.length) *
@@ -131,12 +135,12 @@ export const useAppreciationForm = ({
 	const onPointsChange = useCallback(
 		(
 			value: ValueChangeDetails<{
-				value: number;
+				value: string;
 				label: string;
 				disabled: boolean;
 			}>
 		) => {
-			setValue("pointPerReceiver", value.items[0].value);
+			setValue("pointPerReceiver", Number(value.items[0].value));
 			trigger("pointPerReceiver");
 		},
 		[setValue, trigger]
@@ -148,6 +152,7 @@ export const useAppreciationForm = ({
 		onSendUserChange,
 		onPointsChange,
 		errors,
+		isSubmitting,
 		usersCollection,
 		pointsCollection,
 		currentReceiverUsers,
