@@ -111,7 +111,7 @@ export const useAppreciationForm = ({
 				label: `${calculatePoints(point, currentReceiverUsers.length)}pt`,
 				disabled:
 					calculatePoints(point, currentReceiverUsers.length) *
-					currentReceiverUsers.length >
+						currentReceiverUsers.length >
 					remainingPoints,
 			})),
 		});
