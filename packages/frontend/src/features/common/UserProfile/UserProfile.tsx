@@ -1,4 +1,5 @@
 import { BellRingIcon } from "lucide-react";
+import Link from "next/link";
 import { Box, Divider, Stack } from "styled-system/jsx";
 import { Avatar } from "~/components/ui/avatar";
 import { Icon } from "~/components/ui/icon";
@@ -20,7 +21,9 @@ export const UserProfile: React.FC<UserProfileProps> = ({
 		<Stack direction={"column"} gap={"16px"}>
 			<Stack alignItems={"center"} direction={"row"} gap={"24px"}>
 				<Box>
-					<Avatar size={"2xl"} src={avatarUrl} />
+					<Link href={`/${userName}`}>
+						<Avatar size={"2xl"} src={avatarUrl} />
+					</Link>
 				</Box>
 				<Box>
 					<Stack direction={"column"} gap={"4px"}>
