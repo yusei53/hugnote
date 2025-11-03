@@ -1,5 +1,6 @@
 "use client";
 
+import type { GetAppreciationTotalPointResponse } from "@pichikoto/http-contracts";
 import { Stack } from "styled-system/jsx";
 import { AppTabs } from "~/components/shared/AppTabs/AppTabs";
 import { AppToaster } from "~/components/shared/AppToaster/AppToaster";
@@ -22,6 +23,7 @@ type UserPageClientProps = {
 	sendUserList: User[];
 	receivedUserList: User[];
 	allUsers: User[];
+	totalPoint: GetAppreciationTotalPointResponse | null;
 };
 
 export const UserPageClient: React.FC<UserPageClientProps> = ({
@@ -31,6 +33,7 @@ export const UserPageClient: React.FC<UserPageClientProps> = ({
 	allUsers,
 	sendUserList,
 	receivedUserList,
+	totalPoint,
 }) => {
 	const {
 		options: profileOptions,
@@ -42,6 +45,9 @@ export const UserPageClient: React.FC<UserPageClientProps> = ({
 		selectedOption: selectedAppreciationOption,
 		onSelectOption: onSelectAppreciationOption,
 	} = useToggleAppreciation();
+
+	const sentPoint = totalPoint?.sentPoint ?? 0;
+	const receivedPoint = totalPoint?.receivedPoint ?? 0;
 
 	return (
 		<>
@@ -63,13 +69,13 @@ export const UserPageClient: React.FC<UserPageClientProps> = ({
 							<Stack direction={"row"} gap={"24px"}>
 								<AppreciationStatus
 									title="今月"
-									sendPoint={0}
-									receivedPoint={0}
+									sendPoint={sentPoint}
+									receivedPoint={receivedPoint}
 								/>
 								<AppreciationStatus
 									title="累計"
-									sendPoint={0}
-									receivedPoint={0}
+									sendPoint={sentPoint}
+									receivedPoint={receivedPoint}
 								/>
 							</Stack>
 							<Stack direction={"row"} gap={"24px"}>

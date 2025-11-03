@@ -1,6 +1,7 @@
 import type {
 	AllAppreciationsResponse,
 	GetAllUsersResponse,
+	GetAppreciationTotalPointResponse,
 	UserInfoResponse,
 } from "@pichikoto/http-contracts";
 import { apiClientServer } from "~/lib/api-client-server";
@@ -61,5 +62,25 @@ export const userPageAPIServer = {
 			},
 		});
 		return toAllUsers(result, userID);
+	},
+
+	async getAppreciationTotalPoint(
+		discordUserId: string
+	): Promise<GetAppreciationTotalPointResponse | null> {
+		try {
+			const result =
+				await apiClientServer.get<GetAppreciationTotalPointResponse>(
+					`/points/${discordUserId}`,
+					{
+						next: {
+							tags: ["points"],
+						},
+					}
+				);
+			return result;
+		} catch (error) {
+			console.error("Failed to fetch appreciation total point:", error);
+			return null;
+		}
 	},
 };

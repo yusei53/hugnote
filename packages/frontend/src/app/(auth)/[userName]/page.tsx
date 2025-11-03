@@ -16,6 +16,9 @@ export default async function Page({
 
 	const appreciationList = await userPageAPIServer.getAppreciationList();
 	const allUsers = await userPageAPIServer.getAllUsers();
+	const totalPoint = await userPageAPIServer.getAppreciationTotalPoint(
+		targetUser.discordUserID
+	);
 	const isOwnUser = targetUser.discordUserName === currentUser.discordUserName;
 
 	return (
@@ -27,6 +30,7 @@ export default async function Page({
 			allUsers={allUsers}
 			sendUserList={[]}
 			receivedUserList={[]}
+			totalPoint={totalPoint}
 		/>
 	);
 }
