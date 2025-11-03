@@ -21,13 +21,7 @@ export const AppreciationCard: React.FC<AppreciationCardProps> = ({
 }) => {
 	const { displayReceivedUsers, hiddenReceivedUsersCount } =
 		useDisplayReceivedUsers(appreciation.receivers);
-	const {
-		isOpen,
-		onTriggerEnter,
-		onTriggerLeave,
-		onContentEnter,
-		onContentLeave,
-	} = usePopover();
+	const { isOpen, onTriggerEnter, onTriggerLeave } = usePopover();
 	return (
 		<Card.Root
 			className={css({
@@ -99,7 +93,7 @@ export const AppreciationCard: React.FC<AppreciationCardProps> = ({
 								</Box>
 							</Stack>
 						</Popover.Trigger>
-						<Popover.Positioner
+						{/* <Popover.Positioner
 							maxH={"150px"}
 							overflowY={"auto"}
 							boxShadow={"md"}
@@ -143,7 +137,7 @@ export const AppreciationCard: React.FC<AppreciationCardProps> = ({
 									))}
 								</Stack>
 							</Popover.Content>
-						</Popover.Positioner>
+						</Popover.Positioner> */}
 					</Popover.Root>
 				</Stack>
 			</Card.Header>
