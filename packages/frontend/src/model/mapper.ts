@@ -1,6 +1,7 @@
 import type {
 	AllAppreciationsResponse,
 	GetAllUsersResponse,
+	GetAppreciationUsersResponse,
 	GetWeeklyPointLeadersResponse,
 	UserInfoResponse,
 } from "@pichikoto/http-contracts";
@@ -75,4 +76,23 @@ export const toPointLeaders = (
 			discordAvatar: `https://cdn.discordapp.com/avatars/${receiver.id}/${receiver.discordAvatar}.png`,
 		})),
 	} satisfies PointLeaders;
+};
+
+export const toAppreciationUsers = (
+	response: GetAppreciationUsersResponse
+): { sentToUsers: User[]; receivedFromUsers: User[] } => {
+	return {
+		sentToUsers: response.sentToUsers.map((user) => ({
+			discordUserID: user.id,
+			discordUserName: user.discordUserName,
+			discordGlobalName: user.discordGlobalName,
+			discordAvatar: `https://cdn.discordapp.com/avatars/${user.id}/${user.discordAvatar}.png`,
+		})),
+		receivedFromUsers: response.receivedFromUsers.map((user) => ({
+			discordUserID: user.id,
+			discordUserName: user.discordUserName,
+			discordGlobalName: user.discordGlobalName,
+			discordAvatar: `https://cdn.discordapp.com/avatars/${user.id}/${user.discordAvatar}.png`,
+		})),
+	};
 };

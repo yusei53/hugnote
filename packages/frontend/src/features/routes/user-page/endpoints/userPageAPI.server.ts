@@ -2,13 +2,19 @@ import type {
 	AllAppreciationsResponse,
 	GetAllUsersResponse,
 	GetAppreciationTotalPointResponse,
+	GetAppreciationUsersResponse,
 	UserInfoResponse,
 } from "@pichikoto/http-contracts";
 import { apiClientServer } from "~/lib/api-client-server";
 import { mockUser } from "~/mock/user";
 import { mockUsers } from "~/mock/user/user";
 import type { Appreciation } from "~/model/appreciation";
-import { toAllUsers, toAppreciations, toUserInfo } from "~/model/mapper";
+import {
+	toAllUsers,
+	toAppreciations,
+	toAppreciationUsers,
+	toUserInfo,
+} from "~/model/mapper";
 import type { User, UserInfo } from "~/model/user";
 
 export const userPageAPIServer = {
@@ -101,6 +107,26 @@ export const userPageAPIServer = {
 			return result;
 		} catch (error) {
 			console.error("Failed to fetch appreciation total point:", error);
+			return null;
+		}
+	},
+
+	async getAppreciationUsers(discordUserId: string): Promise<{
+		sentToUsers: User[];
+		receivedFromUsers: User[];
+	} | null> {
+		try {
+			const result = await apiClientServer.get<GetAppreciationUsersResponse>(
+				`/points/${discordUserId}/users`,
+				{
+					next: {
+						tags: ["points-users"],
+					},
+				}
+			);
+			return toAppreciationUsers(result);
+		} catch (error) {
+			console.error("Failed to fetch appreciation users:", error);
 			return null;
 		}
 	},
