@@ -16,90 +16,77 @@ export const AppreciationStatus: React.FC<AppreciationStatusProps> = ({
 	receivedPoint,
 }) => {
 	return (
-		<Stack>
-			<Box
-				className={css({
-					fontSize: "24px",
-				})}
-			>
-				{title}
-			</Box>
-			<Card.Root
-				className={css({
-					boxShadow: "none",
-					border: "2px solid",
-					borderColor: "border",
-					pt: "16px",
-				})}
-				width={"300px"}
-			>
-				<Card.Body>
-					<Stack direction={"column"} gap={"4px"}>
+		<Card.Root
+			className={css({
+				boxShadow: "none",
+				border: "2px solid",
+				borderColor: "border",
+				pt: "16px",
+			})}
+			width={"300px"}
+		>
+			<Card.Body pt={"16px"}>
+				<Stack direction={"column"} gap={"4px"}>
+					<Box>{title}</Box>
+					<Stack direction={"row"} gap={"16px"} alignItems={"center"}>
+						<Box>送ったポイント</Box>
 						<Stack
 							direction={"row"}
-							gap={"16px"}
+							gap={"4px"}
 							alignItems={"center"}
-							mt={"16px"}
+							ml={"auto"}
 						>
-							<Box>送ったポイント</Box>
-							<Stack
-								direction={"row"}
-								gap={"4px"}
-								alignItems={"center"}
-								ml={"auto"}
-							>
-								<Icon color={"blush"}>
-									<SendHorizontal />
-								</Icon>
-								<Box>
-									<span
-										className={css({
-											color: "blush",
-											fontSize: "32px",
-											fontWeight: "bold",
-										})}
-									>
-										{sendPoint}
-									</span>
-									pt
-								</Box>
-							</Stack>
+							<Icon color={"blush"}>
+								<SendHorizontal />
+							</Icon>
+							<Box>
+								<span
+									className={css({
+										color: "blush",
+										fontSize: "32px",
+										fontWeight: "bold",
+									})}
+								>
+									{sendPoint}
+								</span>
+								pt
+							</Box>
 						</Stack>
-						<Divider my="0px" />
-						<Stack
-							direction={"row"}
-							gap={"16px"}
-							alignItems={"center"}
-							mt={"24px"}
-						>
-							<Box>もらったポイント</Box>
-							<Stack
-								direction={"row"}
-								gap={"4px"}
-								alignItems={"center"}
-								ml={"auto"}
-							>
-								<Icon color={"sage"}>
-									<Gift />
-								</Icon>
-								<Box>
-									<span
-										className={css({
-											color: "sage",
-											fontSize: "32px",
-											fontWeight: "bold",
-										})}
-									>
-										{receivedPoint}
-									</span>
-									pt
-								</Box>
-							</Stack>
-						</Stack>
-						<Divider />
 					</Stack>
-				</Card.Body>
-			</Card.Root>
-		</Stack>
+					<Divider my="0px" />
+					<Stack
+						direction={"row"}
+						gap={"16px"}
+						alignItems={"center"}
+						mt={"24px"}
+					>
+						<Box>もらったポイント</Box>
+						<Stack
+							direction={"row"}
+							gap={"4px"}
+							alignItems={"center"}
+							ml={"auto"}
+						>
+							<Icon color={"sage"}>
+								<Gift />
+							</Icon>
+							<Box>
+								<span
+									className={css({
+										color: "sage",
+										fontSize: "32px",
+										fontWeight: "bold",
+									})}
+								>
+									{receivedPoint}
+								</span>
+								pt
+							</Box>
+						</Stack>
+					</Stack>
+					<Divider />
+				</Stack>
+			</Card.Body>
+		</Card.Root>
 	);
 };

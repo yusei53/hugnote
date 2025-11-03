@@ -71,11 +71,6 @@ export const UserPageClient: React.FC<UserPageClientProps> = ({
 						<>
 							<Stack direction={"row"} gap={"24px"}>
 								<AppreciationStatus
-									title="今月"
-									sendPoint={sentPoint}
-									receivedPoint={receivedPoint}
-								/>
-								<AppreciationStatus
 									title="累計"
 									sendPoint={sentPoint}
 									receivedPoint={receivedPoint}

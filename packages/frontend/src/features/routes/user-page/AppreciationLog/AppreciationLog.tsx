@@ -29,8 +29,9 @@ export const AppreciationLog: React.FC<AppreciationLogProps> = ({
 		>
 			<Card.Body pt={"16px"}>
 				<Stack direction={"column"} gap={"16px"}>
-					<Box>{targetUsr.discordUserName}さんが</Box>
-
+					<Box>
+						{targetUsr.discordGlobalName ?? targetUsr.discordUserName}さんが
+					</Box>
 					<Stack direction={"column"} gap={"8px"}>
 						<Stack direction={"row"} gap={"8px"} alignItems={"center"}>
 							<Icon color={"blush"}>
