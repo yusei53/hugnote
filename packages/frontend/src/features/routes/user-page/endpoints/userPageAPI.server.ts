@@ -53,7 +53,28 @@ export const userPageAPIServer = {
 		);
 		return toAppreciations(result);
 	},
-
+	async getReceivedAppreciations(userId: string): Promise<Appreciation[]> {
+		const result = await apiClientServer.get<AllAppreciationsResponse>(
+			`/appreciations/received/${userId}`,
+			{
+				next: {
+					tags: ["received-appreciations"],
+				},
+			}
+		);
+		return toAppreciations(result);
+	},
+	async getSentAppreciations(userId: string): Promise<Appreciation[]> {
+		const result = await apiClientServer.get<AllAppreciationsResponse>(
+			`/appreciations/sent/${userId}`,
+			{
+				next: {
+					tags: ["sent-appreciations"],
+				},
+			}
+		);
+		return toAppreciations(result);
+	},
 	async getAllUsers(): Promise<User[]> {
 		const userID = (await apiClientServer.getUserId()) ?? "";
 		const result = await apiClientServer.get<GetAllUsersResponse>("/users", {

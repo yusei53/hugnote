@@ -44,6 +44,7 @@ export const ClientTopPage: React.FC<ClientTopPageProps> = ({
 					<AppreciationForm
 						users={allUsers}
 						remainingPoints={userInfo.remainingPoints}
+						defaultReceiverUser={null}
 					/>
 				</Stack>
 				<Stack

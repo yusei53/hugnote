@@ -1,5 +1,6 @@
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { userPageAPIServer } from "~/features/routes/user-page/endpoints/userPageAPI.server";
+import { apiClientServer } from "~/lib/api-client-server";
 import { UserPageClient } from "./page.client";
 
 export default async function Page({
@@ -7,6 +8,10 @@ export default async function Page({
 }: {
 	params: Promise<{ userName: string }>;
 }) {
+	const isAuthenticated = await apiClientServer.isAuthenticated();
+	if (!isAuthenticated) {
+		return redirect("/auth/login");
+	}
 	const resolvedParams = await params;
 	const userName = resolvedParams.userName;
 
@@ -14,7 +19,11 @@ export default async function Page({
 	const targetUser = await userPageAPIServer.getUserByName(userName);
 	if (targetUser === null) notFound();
 
-	const appreciationList = await userPageAPIServer.getAppreciationList();
+	const receivedAppreciations =
+		await userPageAPIServer.getReceivedAppreciations(targetUser.discordUserID);
+	const sentAppreciations = await userPageAPIServer.getSentAppreciations(
+		targetUser.discordUserID
+	);
 	const allUsers = await userPageAPIServer.getAllUsers();
 	const totalPoint = await userPageAPIServer.getAppreciationTotalPoint(
 		targetUser.discordUserID
@@ -26,7 +35,8 @@ export default async function Page({
 			user={targetUser}
 			isOwnUser={isOwnUser}
 			isNotificationEnabled={false}
-			appreciationList={appreciationList}
+			receivedAppreciations={receivedAppreciations}
+			sentAppreciations={sentAppreciations}
 			allUsers={allUsers}
 			sendUserList={[]}
 			receivedUserList={[]}

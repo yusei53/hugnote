@@ -154,7 +154,7 @@ class ApiClientServer {
 		if (!token) return false;
 
 		try {
-			await this.get<VerifyTokenResponse>("/auth/verify");
+			await this.get<VerifyTokenResponse>("/auth/is-authorized");
 			return true;
 		} catch (error) {
 			console.warn("Token validation failed:", error);

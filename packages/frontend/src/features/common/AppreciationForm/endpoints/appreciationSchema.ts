@@ -15,8 +15,8 @@ const appreciationSchema = z.object({
 
 export const createAppreciationSchema = (remainingPoints: number) => {
 	return appreciationSchema
-		.refine((data) => data.pointPerReceiver * data.receiverIDs.length <= 40, {
-			message: "送ることができるのは合計40ptまでです",
+		.refine((data) => data.pointPerReceiver * data.receiverIDs.length <= 120, {
+			message: "送ることができるのは合計120ptまでです",
 			path: ["points"],
 		})
 		.refine(

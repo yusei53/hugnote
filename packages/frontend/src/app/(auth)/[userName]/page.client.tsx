@@ -19,7 +19,8 @@ type UserPageClientProps = {
 	user: UserInfo;
 	isOwnUser: boolean;
 	isNotificationEnabled: boolean;
-	appreciationList: Appreciation[];
+	receivedAppreciations: Appreciation[];
+	sentAppreciations: Appreciation[];
 	sendUserList: User[];
 	receivedUserList: User[];
 	allUsers: User[];
@@ -29,8 +30,10 @@ type UserPageClientProps = {
 export const UserPageClient: React.FC<UserPageClientProps> = ({
 	user,
 	isNotificationEnabled,
-	appreciationList,
+	isOwnUser,
 	allUsers,
+	receivedAppreciations,
+	sentAppreciations,
 	sendUserList,
 	receivedUserList,
 	totalPoint,
@@ -90,6 +93,7 @@ export const UserPageClient: React.FC<UserPageClientProps> = ({
 						<AppreciationForm
 							users={allUsers}
 							remainingPoints={user.remainingPoints}
+							defaultReceiverUser={!isOwnUser ? user : null}
 						/>
 					)}
 				</Stack>
@@ -107,12 +111,19 @@ export const UserPageClient: React.FC<UserPageClientProps> = ({
 						/>
 					</AppreciationListHeader>
 					<Stack direction={"column"} gap={"16px"}>
-						{appreciationList.map((appreciation) => (
-							<AppreciationCard
-								key={appreciation.id}
-								appreciation={appreciation}
-							/>
-						))}
+						{selectedAppreciationOption === "receive"
+							? receivedAppreciations.map((appreciation) => (
+									<AppreciationCard
+										key={appreciation.id}
+										appreciation={appreciation}
+									/>
+								))
+							: sentAppreciations.map((appreciation) => (
+									<AppreciationCard
+										key={appreciation.id}
+										appreciation={appreciation}
+									/>
+								))}
 					</Stack>
 				</Stack>
 			</Stack>

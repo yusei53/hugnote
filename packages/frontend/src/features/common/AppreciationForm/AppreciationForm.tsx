@@ -10,18 +10,20 @@ import { Icon } from "~/components/ui/icon";
 import { IconButton } from "~/components/ui/icon-button";
 import { Input } from "~/components/ui/input";
 import { Textarea } from "~/components/ui/textarea";
-import type { User } from "~/model/user";
+import type { User, UserInfo } from "~/model/user";
 import { TruncatedLabel } from "../TruncatedLabel";
 import { useAppreciationForm } from "./usePostForm";
 
 type AppreciationFormProps = {
 	users: User[];
 	remainingPoints: number;
+	defaultReceiverUser: UserInfo | null;
 };
 
 export const AppreciationForm: React.FC<AppreciationFormProps> = ({
 	users,
 	remainingPoints,
+	defaultReceiverUser,
 }) => {
 	const {
 		register,
@@ -29,11 +31,12 @@ export const AppreciationForm: React.FC<AppreciationFormProps> = ({
 		onSendUserChange,
 		onPointsChange,
 		errors,
+		isSubmitting,
 		usersCollection,
 		pointsCollection,
 		currentReceiverUsers,
 		currentPoints,
-	} = useAppreciationForm({ users, remainingPoints });
+	} = useAppreciationForm({ users, remainingPoints, defaultReceiverUser });
 
 	return (
 		<form onSubmit={onSubmit}>
@@ -73,6 +76,7 @@ export const AppreciationForm: React.FC<AppreciationFormProps> = ({
 						<Combobox.Root
 							multiple
 							collection={usersCollection}
+							value={currentReceiverUsers.map((user) => user.discordUserID)}
 							onValueChange={onSendUserChange}
 						>
 							<Field.Root invalid={!!errors.receiverIDs}>
@@ -141,6 +145,7 @@ export const AppreciationForm: React.FC<AppreciationFormProps> = ({
 								<Divider mb={"8px"} />
 								<Combobox.Root
 									collection={pointsCollection}
+									value={currentPoints > 0 ? [currentPoints.toString()] : []}
 									onValueChange={onPointsChange}
 								>
 									<Field.Root invalid={!!errors.pointPerReceiver}>
@@ -203,6 +208,7 @@ export const AppreciationForm: React.FC<AppreciationFormProps> = ({
 							type="submit"
 							variant="outline"
 							size={"lg"}
+							loading={isSubmitting}
 							disabled={
 								currentReceiverUsers.length === 0 || currentPoints === 0
 							}
